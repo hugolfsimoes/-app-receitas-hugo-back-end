@@ -1,0 +1,29 @@
+{
+  "name": "app-receitas-hugo-back-end",
+  "version": "1.0.0",
+  "description": "Projeto de uma aplicacao de receitas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugolfsimoes/-app-receitas-hugo-back-end.git"
+  },
+  "author": "Hugo SImoes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hugolfsimoes/-app-receitas-hugo-back-end/issues"
+  },
+  "homepage": "https://github.com/hugolfsimoes/-app-receitas-hugo-back-end#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

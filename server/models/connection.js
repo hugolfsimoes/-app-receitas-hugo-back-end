@@ -1,4 +1,4 @@
-const Client = require('pg').Client;
+const Client = require('pg').Pool;
 require('dotenv/config');
 
 const client = new Client({
@@ -9,6 +9,5 @@ const client = new Client({
   database: process.env.DB_NAME,
 });
 
-client.connect();
 
 module.exports = client;

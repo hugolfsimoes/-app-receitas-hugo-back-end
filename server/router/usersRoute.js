@@ -1,16 +1,13 @@
 const express = require('express');
-const router = express.Router();
-const Users = require('../models/User');
+const rescue = require('express-rescue');
+const usersRoute = express.Router();
+const UserController = require('../controllers/userController');
 
-router.get('/', async (req, res) => {
-  const users = await Users.getAllUsers();
-  res.status(200).json(users);
-});
 
-router.post('/register/', async (req, res) => {
-  const { name, email, password } = req.body;
-  const users = await Users.createNewUser({ name, email, password });
-  res.status(200).json(users);
-});
+usersRoute.get('/', rescue(UserController.getAllUsers));
+usersRoute.post('/register', rescue(UserController.createUser));
+usersRoute.post('/login', rescue(UserController.login));
 
-module.exports = router;
+
+
+module.exports = usersRoute;

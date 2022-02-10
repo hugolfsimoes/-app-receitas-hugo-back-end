@@ -7,6 +7,13 @@ const getAllUsers = async () => {
   return rows;
 };
 
+const getUserByEmail = async (email) => {
+  const result =
+    await db.query(`SELECT email, password FROM users WHERE email = $1`,
+      [email]);
+  return result;
+};
+
 const createNewUser = async ({ name, email, passwordHash }, role = 'user') => {
   try {
     const result = await db.query(`INSERT INTO "users" (name, email, password, role)
@@ -19,9 +26,10 @@ const createNewUser = async ({ name, email, passwordHash }, role = 'user') => {
   }
 };
 
-const login = async ({ email, password }) => {
+const login = async ({ email, passwordHash }) => {
   try {
-    const result = await db.query(`SELECT name, email FROM users WHERE email = $1 AND password = $2`, [email, password]);
+    const result = await db.query(`SELECT name, email FROM users WHERE email = $1 AND password = $2`, [email]);
+    console.log(result);
     return true;
   } catch (error) {
     console.log(error.stack);
@@ -29,4 +37,4 @@ const login = async ({ email, password }) => {
   }
 };
 
-module.exports = { getAllUsers, createNewUser, login };
+module.exports = { getAllUsers, createNewUser, login, getUserByEmail };

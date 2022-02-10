@@ -1,5 +1,13 @@
 const UsersModel = require('../models/userModel');
+const UserValidations = require('../schemas/userValidations');
+require('dotenv/config');
+const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+
+const jwtConfig = {
+  algorithm: 'HS256',
+  expiresIn: '50m'
+};
 
 const getAllUsers = async () => {
   const users = await UsersModel.getAllUsers();
@@ -13,7 +21,8 @@ const createNewUser = async ({ name, email, password }) => {
 };
 
 const login = async ({ email, password }) => {
-  const result = await UsersModel.login({ name, email, passwordHash });
+  const { passwordHash } = await UserValidations.loginValidation(email, password);
+  const result = await UsersModel.login({ email, passwordHash });
   return result;
 };
 

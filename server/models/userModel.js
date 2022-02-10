@@ -9,7 +9,7 @@ const getAllUsers = async () => {
 
 const getUserByEmail = async (email) => {
   const result =
-    await db.query(`SELECT email, password FROM users WHERE email = $1`,
+    await db.query(`SELECT id, name, email, password, role FROM users WHERE email = $1`,
       [email]);
   return result;
 };
@@ -26,15 +26,5 @@ const createNewUser = async ({ name, email, passwordHash }, role = 'user') => {
   }
 };
 
-const login = async ({ email, passwordHash }) => {
-  try {
-    const result = await db.query(`SELECT name, email FROM users WHERE email = $1 AND password = $2`, [email]);
-    console.log(result);
-    return true;
-  } catch (error) {
-    console.log(error.stack);
-    return false;
-  }
-};
 
-module.exports = { getAllUsers, createNewUser, login, getUserByEmail };
+module.exports = { getAllUsers, createNewUser, getUserByEmail };

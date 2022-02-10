@@ -21,9 +21,18 @@ const createNewUser = async ({ name, email, password }) => {
 };
 
 const login = async ({ email, password }) => {
-  const { passwordHash } = await UserValidations.loginValidation(email, password);
-  const result = await UsersModel.login({ email, passwordHash });
-  return result;
+
+  try {
+    const user = await UserValidations.loginValidation(email, password);
+    user.password = undefined;
+    const payload = { id: user.id, name: user.name, email: user.email, role: user.role };
+    const token = jwt.sign(payload, process.env.SECRET, jwtConfig);
+    return token;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+
 };
 
 module.exports = { getAllUsers, createNewUser, login };

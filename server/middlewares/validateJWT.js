@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv/config');
 
 const validateJWT = async (req, res, next) => {
-  console.log('oi');
   const token = req.headers.authorization;
 
   if (!token) return res.status(401).json({ message: 'Token not informed' });
